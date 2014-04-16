@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+#
+# Utility functions for basic board management
 
 import os
 
@@ -28,19 +30,43 @@ def setboard(file):
     return board
 
 
-def set_empty_board():
+def manual_input():
+    """ Manual input of the sudoku board
+    """
+
+    # Create an empty board (9x9 filled with zeroes) with x and y the
+    # coordinates of each cell/number
     board = dict()
     for y in xrange(1, 10):
         for x in xrange(1, 10):
             board[(x, y)] = 0
+    
+    # Ask for input for each cell
+    for y in xrange(1, 10):
+        for x in xrange(1, 10):
+            os.system('cls' if os.name == 'nt' else 'clear')
+            board[(x, y)] = "_"
+            printboard(board)
+            while True:
+                try:
+                    num = raw_input("Value (1-9)? Enter to skip: ")
+                    if not num:
+                        board[(x, y)] = 0
+                        break
+                    else:
+                        num = int(num)
+                        if num in xrange(1, 10):
+                            board[(x, y)] = num
+                            break
+                        continue
+                except ValueError:
+                    continue
     return board
 
 
-def printboard(board):          # Interface à améliorer
-    """ Print the board
+def printboard(board):
+    """ Print the sudoku board
     """
-
-    os.system('cls' if os.name == 'nt' else 'clear')
 
     # Header
     print '+' + '-' * 23 + '+'
