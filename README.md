@@ -33,12 +33,12 @@ Tom’s Lazy Sudoku Solver (TLSS) was implemented in Python since this is the la
 Its execution flow is mostly straightforward with calls to a helper file `board_util.py` to handle most of the elements displayed in the command-line as well as preliminary operations.
 
 ### Main file
-The pillars of TLSS are its hash table (dictionary) “board” and its solver loop. I used a “board” dictionary to store data from the Sudoku problems. This dictionary takes tuples as keys of the format “(x, y)” which are used throughout TLSS as a set of coordinates for each value of the Sudoku problem. This allows the code to be fairly readable and consistent, compared to the alternative of using hash keys which would have certainly improved the code compactness though.
+The pillars of TLSS are its hash table (dictionary) `board` and its solver loop. I used a dictionary to store data from the Sudoku problems. This dictionary takes tuples as keys of the format `(x, y)` which are used throughout TLSS as a set of coordinates for each value of the Sudoku problem. This allows the code to be fairly readable and consistent, compared to the alternative of using hash keys which would have certainly improved the code compactness though.
 
 TLSS solver loop has two main components:
 
-1. A deterministic solver which will check all lines, all columns and all 3x3 squares to check if there are any solutions available and update the "board" accordingly. Available values for each line, column and 3x3 square are evaluated and stored in an array at the beginning of each solver loop.!
-Solutions for each cell are the intersection those arrays. Solutions are stored in "board" ! directly as a list. If the list is of size 1, a solution is found and the list element replaced at ! board[(x,y)].
+1. A deterministic solver which will check all lines, all columns and all 3x3 squares to check if there are any solutions available and update the `board` dictionary accordingly. Available values for each line, column and 3x3 square are evaluated and stored in an array at the beginning of the solver loop.
+Solutions for each cell are the intersection of those arrays. Possible solutions are stored in the dictionary directly as a list. If the list is of size 1, a solution is found and the list element replaced by the `int` solution at its `(x,y)` coordinates.
 2. If the deterministic solver cannot find any new solution, the solver will then make “smart” hypotheses by selecting randomly one of the values of the shortest list of solutions available. The board is backed up at each of these hypotheses and rollbacks are performed when inconsistencies are found down the road, meaning (one of) the guess(es) was (were) wrong.
 
 The “lazy” part of the solver comes from that the only deterministic solving algorithm I implemented was an inclusion solver, where several other deterministic algorithms are commonly used to solve Sudoku problems.
@@ -46,11 +46,11 @@ The “lazy” part of the solver comes from that the only deterministic solving
 3x3 squares are handled in a particular fashion (far different than rows and columns) which revolves around three data structures:
 * `sqr_start`, a list which stores the start coordinates (left to right, top to bottom) of each 3x3 square;
 * `square`, a dictionary which associate each set of coordinates on the board to a square number (1 through 9);
-* `not_in_sqr` a list which bridges the two and stores for each square the values yet to be entered in !the board.
+* `not_in_sqr` a list which bridges the two and stores for each square the values yet to be entered in the board.
 
 
-### Helper file!
-The helper file “board_util” is a set of “helper” functions which handle most of the elements displayed in the command-line as well as various preliminary (as in, before the solver kicks in) operations.
+### Helper file
+The helper file `board_util` is a set of “helper” functions which handle most of the elements displayed in the command-line as well as various preliminary (as in, before the solver kicks in) operations.
 I created this separate set of functions to:
 * Avoid code repetition;
 * And avoid cluttering in the main file.
