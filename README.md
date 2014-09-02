@@ -4,9 +4,11 @@
 Tom’s Lazy Sudoku Solver is a command-line Sudoku solver. It can solve a wide range of Sudoku problems thanks to using both a deterministic approach and hypotheses.
 
 Tom’s Lazy Solver must be called with the Python interpreter:
+
 `$ python lazy_sudoku.py`
 
-It is also possible to give the program executable rights. In which case it will possible to call it by simply using:
+It is also possible to give the program executable rights (`chmod +x`). In which case it will possible to call it by using simply:
+
 `$ ./lazy_sudoku.py`
 
 Two input modes are available: pre-formatted file or manual input. This is reflected by the arguments the program accept:
